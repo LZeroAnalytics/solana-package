@@ -40,8 +40,8 @@ def get_default_validator_params():
     
 def get_default_explorer_params():
     return {
-        "enabled": False,  # Disabled by default for testing
-        "image": "solanalabs/solana:latest",  # Using solanalabs/solana as a fallback
+        "enabled": True,
+        "image": constants.DEFAULT_EXPLORER_IMAGE,
         "rpc_url": "",
         "ws_url": "",
         "explorer_port": 3000

@@ -19,10 +19,8 @@ def launch_explorer(plan, validator_context, explorer_params, persistent, global
     
     # Environment variables for the explorer
     env_vars = {
-        "REACT_APP_RPC_ENDPOINT": rpc_url,
-        "REACT_APP_WS_ENDPOINT": ws_url,
+        "NEXT_PUBLIC_MAINNET_RPC_URL": rpc_url,
         "REACT_APP_EXPLORER_TITLE": "Solana Local Explorer",
-        "PORT": str(explorer_params["explorer_port"]),
     }
     
     # Explorer service config

@@ -13,9 +13,8 @@ validator_params:
   extra_args: []
 
 explorer_params:
-  enabled: false  # Disabled by default for testing
+  enabled: true
   image: "solanalabs/solana:latest"  # Using solanalabs/solana as a fallback
-  explorer_port: 3000
 
 network_params:
   network_name: "solana-local"
