@@ -4,7 +4,7 @@ WS_PORT_ID = "ws"
 EXPLORER_PORT_ID = "explorer"
 
 # Default validator configuration
-DEFAULT_VALIDATOR_IMAGE = "tchambard/solana-test-validator:latest"
+DEFAULT_VALIDATOR_IMAGE = "ghcr.io/beeman/solana-test-validator:latest"
 
 # Constants for accounts to clone
 TOKEN_PROGRAMS = ["TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"]
