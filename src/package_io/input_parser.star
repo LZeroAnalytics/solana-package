@@ -8,13 +8,21 @@ def input_parser(plan, args):
         args = {}
         
     # Set up default validator parameters
-    validator_params = args.get("validator_params", get_default_validator_params())
+    validator_params = get_default_validator_params()
     
     # Set up default block explorer parameters
-    explorer_params = args.get("explorer_params", get_default_explorer_params())
+    explorer_params = get_default_explorer_params()
     
     # Set up default network parameters
-    network_params = args.get("network_params", get_default_network_params())
+    network_params = get_default_network_params()
+
+    for sub_attr in args["validator_params"]:
+        sub_value = args["validator_params"][sub_attr]
+        validator_params[sub_attr] = sub_value
+
+    for sub_attr in args["explorer_params"]:
+        sub_value = args["explorer_params"][sub_attr]
+        explorer_params[sub_attr] = sub_value
     
     return struct(
         validator_params = validator_params,
