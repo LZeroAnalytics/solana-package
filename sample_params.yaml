@@ -1,5 +1,5 @@
 validator_params:
-  image: "tchambard/solana-test-validator:latest"
+  image: "solana-validator-with-api:latest"
   url: "https://api.mainnet-beta.solana.com"  # Required URL parameter
   clone_tokens: true
   clone_defi: false  # Disabled by default due to account fetch issues

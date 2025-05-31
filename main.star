@@ -27,6 +27,7 @@ def run(plan, args={}):
     plan.print("Solana network launched successfully!")
     plan.print("RPC URL: " + network_context.validator.rpc_url)
     plan.print("WebSocket URL: " + network_context.validator.ws_url)
+    plan.print("API URL: " + network_context.validator.api_url)
     
     if network_context.explorer != None:
         plan.print("Explorer URL: " + network_context.explorer.explorer_url)
