@@ -27,21 +27,24 @@ COPY api/ ./
 # Build the TypeScript API
 RUN npm run build
 
-# Create startup script
-RUN echo '#!/bin/bash\n\
-# Start Solana test validator in background\n\
-solana-test-validator \
-  --ledger /tmp/solana-ledger \
-  --rpc-port 8899 \
-  --reset \
-  --quiet &\n\
-\n\
-# Wait for validator to start\n\
-sleep 10\n\
-\n\
-# Start the API\n\
-cd /app && npm start\n\
-' > /start.sh && chmod +x /start.sh
+# Create entrypoint script that handles both API and validator
+COPY <<EOF /entrypoint.sh
+#!/bin/bash
+set -e
+
+echo "Starting API in background..."
+cd /app && npm start &
+API_PID=\$!
+echo "API started with PID: \$API_PID"
+
+# Wait for API to initialize
+sleep 5
+
+echo "Starting validator with command: \$@"
+exec "\$@"
+EOF
+
+RUN chmod +x /entrypoint.sh
 
 # Expose ports
 # 3000 - API port
@@ -54,5 +57,5 @@ ENV PORT=3000
 ENV RPC_URL=http://localhost:8899
 ENV LOG_LEVEL=info
 
-# Start both services
-CMD ["/start.sh"]
+# Use entrypoint script
+ENTRYPOINT ["/entrypoint.sh"]
