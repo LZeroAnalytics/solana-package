@@ -1,0 +1,15 @@
+validator_params:
+  prefunded_accounts:
+    "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM":
+      balance: "1000000000SOL"
+  rpc_port: 8899
+  ws_port: 8900
+  clone_tokens: true
+  clone_defi: false
+  clone_layer_zero: false
+
+explorer_params:
+  enabled: true
+  explorer_port: 3000
+
+persistent: false

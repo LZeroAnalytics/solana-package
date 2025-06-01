@@ -1,6 +1,72 @@
 shared_utils = import_module("../shared_utils/shared_utils.star")
 constants = import_module("../package_io/constants.star")
 
+def process_prefunded_accounts(plan, prefunded_accounts):
+    """Process prefunded accounts by calling the faucet API for each account"""
+    
+    # Wait for API to be ready
+    plan.wait(
+        service_name="solana-validator",
+        recipe=GetHttpRequestRecipe(
+            port_id="api",
+            endpoint="/ping"
+        ),
+        field="code",
+        assertion="==",
+        target_value=200,
+        timeout="30s"
+    )
+    
+    # Parse JSON string if it's a string, otherwise use as-is
+    accounts_dict = prefunded_accounts
+    if type(prefunded_accounts) == "string":
+        # For now, we'll need to manually parse the JSON string
+        # Since Starlark doesn't have built-in JSON parsing, we'll expect it as a dict
+        plan.print("Warning: prefunded_accounts should be passed as a dict, not a JSON string")
+        return
+    
+    # Parse and process each account
+    for address, config in accounts_dict.items():
+        balance = config.get("balance", "")
+        
+        if balance.endswith("SOL"):
+            # Extract amount and convert to SOL
+            amount_str = balance[:-3]  # Remove "SOL" suffix
+            amount = float(amount_str) / 1000000000  # Convert lamports to SOL
+            
+            plan.print("Funding {0} with {1} SOL".format(address, amount))
+            
+            # Call SOL faucet endpoint
+            plan.request(
+                service_name="solana-validator",
+                recipe=PostHttpRequestRecipe(
+                    port_id="api",
+                    endpoint="/fund",
+                    body='{"address": "' + address + '", "amount": ' + str(amount) + '}',
+                    headers={"Content-Type": "application/json"}
+                )
+            )
+            
+        elif balance.endswith("USDC"):
+            # Extract amount and convert to USDC tokens
+            amount_str = balance[:-4]  # Remove "USDC" suffix
+            amount = float(amount_str) / 1000000  # Convert to USDC tokens (6 decimals)
+            
+            plan.print("Funding {0} with {1} USDC".format(address, amount))
+            
+            # Call USDC faucet endpoint
+            plan.request(
+                service_name="solana-validator",
+                recipe=PostHttpRequestRecipe(
+                    port_id="api",
+                    endpoint="/fund-usdc",
+                    body='{"address": "' + address + '", "amount": ' + str(amount) + '}',
+                    headers={"Content-Type": "application/json"}
+                )
+            )
+        else:
+            plan.print("Warning: Unknown balance format for address {0}: {1}".format(address, balance))
+
 def launch_validator(plan, validator_params, persistent, global_node_selectors):
     plan.print("Launching Solana test validator")
     
@@ -75,6 +141,11 @@ def launch_validator(plan, validator_params, persistent, global_node_selectors):
     }
     
     validator_service = plan.add_service("solana-validator", ServiceConfig(**config_args))
+    
+    # Process prefunded accounts if provided
+    if validator_params["prefunded_accounts"]:
+        plan.print("Processing prefunded accounts...")
+        process_prefunded_accounts(plan, validator_params["prefunded_accounts"])
     
     return struct(
         service = validator_service,

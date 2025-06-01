@@ -85,15 +85,19 @@ app.post('/fund-usdc', fundLimiter, validateFundRequest, async (req: Request, re
 
         const tokenAccountResult = await solanaCommands.createTokenAccount(USDC_MINT, address);
         
-        if (!tokenAccountResult.success) {
-            logger.warn(`Token account creation failed or already exists: ${tokenAccountResult.error}`);
+        if (!tokenAccountResult.success && !tokenAccountResult.error?.includes('already exists')) {
+            logger.error(`Token account creation failed: ${tokenAccountResult.error}`);
+            return res.status(500).json({
+                error: `Failed to create USDC token account: ${tokenAccountResult.error}`,
+            });
         }
 
+        
         const mintResult = await solanaCommands.mintTokens(USDC_MINT, amount, address);
 
         if (!mintResult.success) {
             return res.status(500).json({
-                error: `USDC funding failed: ${mintResult.error}`,
+                error: `USDC minting failed: ${mintResult.error}`,
             });
         }
 
@@ -101,6 +105,9 @@ app.post('/fund-usdc', fundLimiter, validateFundRequest, async (req: Request, re
 
         res.status(200).json({
             message: 'USDC funding successful',
+            amount: amount,
+            recipient: address,
+            mint: USDC_MINT,
             output: mintResult.output,
         });
     } catch (error) {

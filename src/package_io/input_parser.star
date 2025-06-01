@@ -16,13 +16,17 @@ def input_parser(plan, args):
     # Set up default network parameters
     network_params = get_default_network_params()
 
-    for sub_attr in args["validator_params"]:
-        sub_value = args["validator_params"][sub_attr]
-        validator_params[sub_attr] = sub_value
+    # Update validator params if provided
+    if "validator_params" in args:
+        for sub_attr in args["validator_params"]:
+            sub_value = args["validator_params"][sub_attr]
+            validator_params[sub_attr] = sub_value
 
-    for sub_attr in args["explorer_params"]:
-        sub_value = args["explorer_params"][sub_attr]
-        explorer_params[sub_attr] = sub_value
+    # Update explorer params if provided
+    if "explorer_params" in args:
+        for sub_attr in args["explorer_params"]:
+            sub_value = args["explorer_params"][sub_attr]
+            explorer_params[sub_attr] = sub_value
     
     return struct(
         validator_params = validator_params,
@@ -43,7 +47,8 @@ def get_default_validator_params():
         "additional_accounts": [],
         "ledger_compaction_interval": "",
         "log_level": True,  # Boolean flag for --log
-        "extra_args": []
+        "extra_args": [],
+        "prefunded_accounts": {}
     }
     
 def get_default_explorer_params():
