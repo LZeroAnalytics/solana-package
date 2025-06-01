@@ -11,8 +11,10 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Note: SPL Token CLI not available in this base image
-# USDC funding will be disabled until proper SPL tools are available
+# Install Rust and spl-token CLI for USDC operations
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+    && . ~/.cargo/env \
+    && cargo install spl-token-cli
 
 # Create app directory
 WORKDIR /app
