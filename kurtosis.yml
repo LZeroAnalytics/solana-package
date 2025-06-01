@@ -1,1 +1,24 @@
 name: github.com/LZeroAnalytics/solana-package
+description: |
+  Solana
+  ======
+  This Kurtosis package instantiates a local Solana environment with a test validator and optional block explorer.
+
+  Prerequisites
+  -------------
+  None. This package is self-contained and does not require any external resources.
+
+  Configuration
+  -------------
+  To configure this package, you can provide the following information:
+  - `image`: Docker image for the Solana test validator
+  - `clone_tokens`: Whether to clone token program accounts
+  - `clone_defi`: Whether to clone DeFi protocol accounts
+  - `clone_layer_zero`: Whether to clone LayerZero contracts
+  - `rpc_port`: Port for RPC endpoint
+  - `ws_port`: Port for WebSocket endpoint
+  - `log_level`: Log level (info, warn, error, debug, trace)
+  - `explorer`: Configuration for the block explorer, including:
+    - `enabled`: Whether to enable the block explorer
+    - `image`: Docker image for the explorer
+    - `explorer_port`: Port for the explorer UI

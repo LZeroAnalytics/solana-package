@@ -56,16 +56,17 @@ def launch_validator(plan, validator_params, persistent, global_node_selectors):
     for arg in validator_params["extra_args"]:
         command.append(arg)
     
-    # Service config
+    # Service config - now includes API port
     port_assignments = {
         constants.RPC_PORT_ID: validator_params["rpc_port"],
         constants.WS_PORT_ID: validator_params["ws_port"],
+        "api": 3000,  # API port
     }
     
     config_args = {
-        "image": validator_params["image"],
+        "image": "solana-validator-with-api:latest",  # Use our custom image
         "ports": shared_utils.get_port_specs(port_assignments),
-        "cmd": command,
+        "cmd": command,  # Pass the customized validator command
         "node_selectors": global_node_selectors,
     }
     
@@ -75,4 +76,5 @@ def launch_validator(plan, validator_params, persistent, global_node_selectors):
         service = validator_service,
         rpc_url = "http://solana-validator:{0}".format(validator_params["rpc_port"]),
         ws_url = "ws://solana-validator:{0}".format(validator_params["ws_port"]),
+        api_url = "http://solana-validator:3000",  # Add API URL
     )
