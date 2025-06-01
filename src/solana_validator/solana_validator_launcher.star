@@ -64,7 +64,7 @@ def launch_validator(plan, validator_params, persistent, global_node_selectors):
     }
     
     config_args = {
-        "image": "solana-validator-with-api:latest",  # Use our custom image
+        "image": validator_params["image"],
         "ports": shared_utils.get_port_specs(port_assignments),
         "cmd": command,  # Pass the customized validator command
         "node_selectors": global_node_selectors,

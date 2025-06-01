@@ -4,10 +4,10 @@ WS_PORT_ID = "ws"
 EXPLORER_PORT_ID = "explorer"
 
 # Default validator configuration
-DEFAULT_VALIDATOR_IMAGE = "ghcr.io/beeman/solana-test-validator:latest"
+DEFAULT_VALIDATOR_IMAGE = "tiljordan/solana-test-validator:1.0.0"
 
 # Default explorer configuration
-DEFAULT_EXPLORER_IMAGE = "tiljordan/solana-explorer:1.0.4"
+DEFAULT_EXPLORER_IMAGE = "tiljordan/solana-explorer:1.0.5"
 
 # Constants for accounts to clone
 TOKEN_PROGRAMS = ["TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"]
