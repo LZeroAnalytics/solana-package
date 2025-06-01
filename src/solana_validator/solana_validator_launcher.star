@@ -30,9 +30,9 @@ def process_prefunded_accounts(plan, prefunded_accounts):
         balance = config.get("balance", "")
         
         if balance.endswith("SOL"):
-            # Extract amount and convert to SOL
+            # Extract amount in SOL
             amount_str = balance[:-3]  # Remove "SOL" suffix
-            amount = float(amount_str) / 1000000000  # Convert lamports to SOL
+            amount = float(amount_str)
             
             plan.print("Funding {0} with {1} SOL".format(address, amount))
             
