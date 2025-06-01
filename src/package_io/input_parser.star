@@ -40,7 +40,7 @@ def get_default_validator_params():
         "image": constants.DEFAULT_VALIDATOR_IMAGE,
         "url": "https://api.mainnet-beta.solana.com",  # Required URL parameter
         "clone_tokens": True,
-        "clone_defi": False,  # Disabled by default due to account fetch issues
+        "selected_protocols": [],  # Array of protocol names to clone
         "clone_layer_zero": False,  # Disabled by default due to account fetch issues
         "rpc_port": 8899,
         "ws_port": 8900,

@@ -99,11 +99,12 @@ def launch_validator(plan, validator_params, persistent, global_node_selectors):
             command.append("--clone")
             command.append(token)
             
-    # Clone DeFi protocol accounts if requested
-    if validator_params["clone_defi"]:
-        for protocol_name, protocol_address in constants.DEFI_PROTOCOLS.items():
-            command.append("--clone")
-            command.append(protocol_address)
+    # Clone selected DeFi protocol accounts
+    for protocol_name in validator_params["selected_protocols"]:
+        if protocol_name in constants.DEFI_PROTOCOLS:
+            for protocol_address in constants.DEFI_PROTOCOLS[protocol_name]:
+                command.append("--clone")
+                command.append(protocol_address)
             
     # Clone LayerZero contracts if requested
     if validator_params["clone_layer_zero"]:
