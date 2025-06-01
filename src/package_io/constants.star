@@ -50,8 +50,7 @@ DEFI_PROTOCOLS = {
             "zVmMsL5qGh7txhTHFgGZcFQpSsxSx6DBLJ3u113PBer"
         ],
         "upgradeable": [
-            "whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc",
-            ""
+            "whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc"
         ]
     },
     "Serum": {
