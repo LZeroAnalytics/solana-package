@@ -102,9 +102,21 @@ def launch_validator(plan, validator_params, persistent, global_node_selectors):
     # Clone selected DeFi protocol accounts
     for protocol_name in validator_params["selected_protocols"]:
         if protocol_name in constants.DEFI_PROTOCOLS:
-            for protocol_address in constants.DEFI_PROTOCOLS[protocol_name]:
-                command.append("--clone")
-                command.append(protocol_address)
+            protocol_data = constants.DEFI_PROTOCOLS[protocol_name]
+            
+            # Clone upgradeable programs using --clone-upgradeable-program
+            if "upgradeable" in protocol_data:
+                for upgradeable_address in protocol_data["upgradeable"]:
+                    command.append("--clone-upgradeable-program")
+                    command.append(upgradeable_address)
+            
+            # Clone non-upgradeable programs using --clone
+            if "programs" in protocol_data:
+                for program_address in protocol_data["programs"]:
+                    # Skip if already cloned as upgradeable
+                    if "upgradeable" not in protocol_data or program_address not in protocol_data["upgradeable"]:
+                        command.append("--clone")
+                        command.append(program_address)
             
     # Clone LayerZero contracts if requested
     if validator_params["clone_layer_zero"]:
@@ -116,6 +128,11 @@ def launch_validator(plan, validator_params, persistent, global_node_selectors):
     # Add any additional accounts to clone
     for account in validator_params["additional_accounts"]:
         command.append("--clone")
+        command.append(account)
+        
+    # Add any additional upgradeable accounts to clone
+    for account in validator_params["additional_upgradeable_accounts"]:
+        command.append("--clone-upgradeable-program")
         command.append(account)
         
     # Add ledger compaction interval if specified
