@@ -3,13 +3,14 @@ FROM ghcr.io/beeman/solana-test-validator:latest
 # Switch to root user to install packages
 USER root
 
-# Install Node.js and npm
 RUN apt-get update && apt-get install -y \
-    curl \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    build-essential \
+    clang \
+    pkg-config libssl-dev libudev-dev \
+    curl && \
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install Rust and spl-token CLI for USDC operations
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \

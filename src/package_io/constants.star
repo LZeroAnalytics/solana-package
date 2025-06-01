@@ -4,7 +4,7 @@ WS_PORT_ID = "ws"
 EXPLORER_PORT_ID = "explorer"
 
 # Default validator configuration
-DEFAULT_VALIDATOR_IMAGE = "tiljordan/solana-test-validator:1.0.0"
+DEFAULT_VALIDATOR_IMAGE = "tiljordan/solana-test-validator:1.0.1"
 
 # Default explorer configuration
 DEFAULT_EXPLORER_IMAGE = "tiljordan/solana-explorer:1.0.6"
