@@ -18,6 +18,10 @@ def launch_validator(plan, validator_params, persistent, global_node_selectors):
     # Add RPC port configuration
     command.append("--rpc-port")
     command.append(str(validator_params["rpc_port"]))
+
+    # Increase faucet amount
+    command.append("--faucet-sol")
+    command.append(str(2000000000000))
     
     # Add log flag if specified
     if validator_params["log_level"]:
