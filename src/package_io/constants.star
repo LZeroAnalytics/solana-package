@@ -18,19 +18,38 @@ LAYER_ZERO_ULN302 = "uLn3Qpd5ywQQsXH6TLgqEiibPkQU2iiXGETMbtZmxP4"
 
 # Common DeFi protocols with multiple program addresses
 DEFI_PROTOCOLS = {
-    "Raydium": [
-        "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8",  # Legacy AMM v4
-        "CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",  # Standard AMM
-        "5quBtoiQqxF9Jv6KYKctB59NT3gtJD2Y65kdnB1Uev3h",  # Stable Swap AMM
-        "LanMV9sAd7wArD4vJFi2qDfnVhYSUGeeAdtu3uj"       # LaunchLab
-    ],
-    "Orca": [
-        "whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc",  # Whirlpool Program ID
-        "2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ",  # WhirlpoolConfig Address
-        "777H5H3Tp9U11uRVRzFwM8BinfiakbaLT8vQpeuhvEiH"   # WhirlpoolConfigExtension Address
-    ],
-    "Serum": ["9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"],
-    "Marinade": ["MarBmsSgHwmVtVSQxmNgCnFUnQYmH3UEU3yvtP6dkg6"],
+    "Raydium": {
+        "programs": [
+            "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8",  # Legacy AMM v4
+            "CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",  # Standard AMM
+            "5quBtoiQqxF9Jv6KYKctB59NT3gtJD2Y65kdnB1Uev3h",  # Stable Swap AMM
+            "LanMV9sAd7wArD4vJFi2qDfnVhYSUGeeAdtu3uj"       # LaunchLab
+        ],
+        "upgradeable": [
+            "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8",  # Legacy AMM v4
+            "CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",  # Standard AMM
+            "5quBtoiQqxF9Jv6KYKctB59NT3gtJD2Y65kdnB1Uev3h",  # Stable Swap AMM
+            "LanMV9sAd7wArD4vJFi2qDfnVhYSUGeeAdtu3uj"       # LaunchLab
+        ]
+    },
+    "Orca": {
+        "programs": [
+            "whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc",  # Whirlpool Program ID
+            "2LecshUwdy9xi7meFgHtFJQNSKk4KdTrcpvaB56dP2NQ",  # WhirlpoolConfig Address
+            "777H5H3Tp9U11uRVRzFwM8BinfiakbaLT8vQpeuhvEiH"   # WhirlpoolConfigExtension Address
+        ],
+        "upgradeable": [
+            "whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc"   # Whirlpool Program ID (upgradeable)
+        ]
+    },
+    "Serum": {
+        "programs": ["9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"],
+        "upgradeable": ["9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin"]
+    },
+    "Marinade": {
+        "programs": ["MarBmsSgHwmVtVSQxmNgCnFUnQYmH3UEU3yvtP6dkg6"],
+        "upgradeable": ["MarBmsSgHwmVtVSQxmNgCnFUnQYmH3UEU3yvtP6dkg6"]
+    },
 }
 
 # Genesis data mount point

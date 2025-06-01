@@ -45,6 +45,7 @@ def get_default_validator_params():
         "rpc_port": 8899,
         "ws_port": 8900,
         "additional_accounts": [],
+        "additional_upgradeable_accounts": [],
         "ledger_compaction_interval": "",
         "log_level": True,  # Boolean flag for --log
         "extra_args": [],
